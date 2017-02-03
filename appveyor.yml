@@ -162,6 +162,7 @@ install:
     - IF NOT EXIST %OPENSSLTOP%\lib\ssleay32.lib (
         CD %BUILD_DIR% &&
         7z x C:\Others\OpenSSL_1_0_2k.tar.gz -so | 7z x -si -ttar > nul &&
+        DIR &&
         CD openssl-OpenSSL_1_0_2k &&
         perl Configure %TARGET% no-asm no-shared no-zlib --prefix=%OPENSSLTOP% --openssldir=%OPENSSLTOP% &&
         CALL ms\%DO% &&
@@ -169,7 +170,7 @@ install:
         COPY inc32\openssl\*.h %OPENSSLTOP%\include\openssl &&
         COPY out32\*.lib %OPENSSLTOP%\lib &&
         CD %BASE_DIR% &&
-        RMDIR /S /Q %BASE_DIR%\openssl-OpenSSL_1_0_2k
+        RMDIR /S /Q %BUILD_DIR%\openssl-OpenSSL_1_0_2k
       )
 
     # Build PostgreSQL Librarires
@@ -188,6 +189,7 @@ install:
     - IF NOT EXIST %PGTOP%\lib\libpq.lib (
         CD %BUILD_DIR% &&
         7z x C:\Others\postgresql-9.6.1.tar.gz -so | 7z x -si -ttar > nul &&
+        DIR &&
         CD postgresql-9.6.1\src\tools\msvc &&
         SET PGBUILD=%BUILDDIR%\postgresql-9.6.1 &&
         ECHO $config-^>{ldap} = 0; > config.pl &&
@@ -203,7 +205,7 @@ install:
         COPY *.h %PGTOP%\include &&
         COPY Release\libpq.lib %PGTOP%\lib &&
         CD %BASE_DIR% &&
-        RMDIR /S /Q %BASE_DIR%\postgresql-9.6.1
+        RMDIR /S /Q %BUILD_DIR%\postgresql-9.6.1
       )
 
 
