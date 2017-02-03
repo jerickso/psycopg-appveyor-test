@@ -112,8 +112,8 @@ init:
     #- SET PATH="C:\Program Files (x86)\nasm;%PATH%"
 
     # Setup the compiler based upon version and architecture
-    - IF "%PYTHON_ARCH%"=="32" ("C:\\Program Files (x86)\\Microsoft Visual Studio %VS_VER%\\VC\\vcvarsall.bat" x86)
-    - IF "%PYTHON_ARCH%"=="64" ("C:\\Program Files (x86)\\Microsoft Visual Studio %VS_VER%\\VC\\vcvarsall.bat" amd64)
+    - IF "%PYTHON_ARCH%"=="32" (CALL "C:\\Program Files (x86)\\Microsoft Visual Studio %VS_VER%\\VC\\vcvarsall.bat" x86)
+    - IF "%PYTHON_ARCH%"=="64" (CALL "C:\\Program Files (x86)\\Microsoft Visual Studio %VS_VER%\\VC\\vcvarsall.bat" amd64)
 
 
 # Repository gets cloned, Cache is restored
