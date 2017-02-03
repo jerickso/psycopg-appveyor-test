@@ -159,7 +159,7 @@ install:
         CD %BUILD_DIR% &&
         7z x C:\Others\OpenSSL_1_0_2k.tar.gz -so | 7z x -si -ttar > nul &&
         CD openssl-OpenSSL_1_0_2k &&
-        perl Configure %TARGET% no-asm no-shared no-zlib--prefix=%OPENSSLTOP% --openssldir=%OPENSSLTOP% &&
+        perl Configure %TARGET% no-asm no-shared no-zlib --prefix=%OPENSSLTOP% --openssldir=%OPENSSLTOP% &&
         CALL ms\%DO% &&
         nmake -f ms\nt.mak init headers lib &&
         COPY inc32\openssl\*.h %OPENSSLTOP%\include\openssl &&
