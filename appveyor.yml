@@ -1,60 +1,60 @@
-version : 2.6.x.pre.{build}
+version : 2.x.pre.{build}
 
-clone_folder: "C:\\projects\\psycopg"
+clone_folder: C:\projects\psycopg
 environment:
-  global:
-      # MSVC Express 2008's setenv.cmd failes if /E:ON and /V:ON are not
-      # enabled in the batch script interpreter
-      #
-      #      WITH_COMPILER: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_compiler.cmd"
-      CMD_IN_ENV: cmd /E:ON /V:ON /C .\appveyor\run_with_env.cmd
+    global:
+        # MSVC Express 2008's setenv.cmd failes if /E:ON and /V:ON are not
+        # enabled in the batch script interpreter
+        #
+        #      WITH_COMPILER: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_compiler.cmd"
+        CMD_IN_ENV: cmd /E:ON /V:ON /C .\appveyor\run_with_env.cmd
 
-  matrix:
-    # For Python versions available on Appveyor, see
-    # http://www.appveyor.com/docs/installed-software#python
+    matrix:
+        # For Python versions available on Appveyor, see
+        # http://www.appveyor.com/docs/installed-software#python
 
-#    - PYTHON: C:\Python27
-#      PYTHON_ARCH: '32'
-#      # VS 2008
-#      VS_VER: 9.0
-#    - PYTHON: C:\Python33
-#      PYTHON_ARCH: '32'
-#      # VS 2010
-#      VS_VER: 10.0
-#    - PYTHON: C:\Python34
-#      PYTHON_ARCH: '32'
-#      # VS 2010
-#      VS_VER: 10.0
-#    - PYTHON: C:\Python35
-#      PYTHON_ARCH: '32'
-#      # VS 2015
-#      VS_VER: 14.0
-#    - PYTHON: C:\Python36
-#      PYTHON_ARCH: '32'
-#      # VS 2015
-#      VS_VER: 14.0
-#    - PYTHON: C:\Python27-x64
-#      PYTHON_ARCH: '64'
-#      # VS 2008
-#      VS_VER: 9.0
-#    - PYTHON: C:\Python33-x64
-#      DISTUTILS_USE_SDK: '1'
-#      PYTHON_ARCH: '64'
-#      # VS 2010
-#      VS_VER: 10.0
-#    - PYTHON: C:\Python34-x64
-#      DISTUTILS_USE_SDK: '1'
-#      PYTHON_ARCH: '64'
-#      # VS 2010
-#      VS_VER: 10.0
-#    - PYTHON: C:\Python35-x64
-#      PYTHON_ARCH: '64'
-#      # VS 2015
-#      VS_VER: 14.0
-    - PYTHON: C:\Python36-x64
-      PYTHON_ARCH: '64'
-      # VS 2015
-      VS_VER: 14.0
+#        - PYTHON: C:\Python27
+#          PYTHON_ARCH: '32'
+#          # VS 2008
+#          VS_VER: 9.0
+#        - PYTHON: C:\Python33
+#          PYTHON_ARCH: '32'
+#          # VS 2010
+#          VS_VER: 10.0
+#        - PYTHON: C:\Python34
+#          PYTHON_ARCH: '32'
+#          # VS 2010
+#          VS_VER: 10.0
+#        - PYTHON: C:\Python35
+#          PYTHON_ARCH: '32'
+#          # VS 2015
+#          VS_VER: 14.0
+#        - PYTHON: C:\Python36
+#          PYTHON_ARCH: '32'
+#          # VS 2015
+#          VS_VER: 14.0
+#        - PYTHON: C:\Python27-x64
+#          PYTHON_ARCH: '64'
+#          # VS 2008
+#          VS_VER: 9.0
+#        - PYTHON: C:\Python33-x64
+#          DISTUTILS_USE_SDK: '1'
+#          PYTHON_ARCH: '64'
+#          # VS 2010
+#          VS_VER: 10.0
+#        - PYTHON: C:\Python34-x64
+#          DISTUTILS_USE_SDK: '1'
+#          PYTHON_ARCH: '64'
+#          # VS 2010
+#          VS_VER: 10.0
+#        - PYTHON: C:\Python35-x64
+#          PYTHON_ARCH: '64'
+#          # VS 2015
+#          VS_VER: 14.0
+        - PYTHON: C:\Python36-x64
+          PYTHON_ARCH: '64'
+          # VS 2015
+          VS_VER: 14.0
 
       #Py27 = 9.0  (VS 2008)
       #Py 3.3,3.4 = 10.0 (VS 2010)
@@ -212,8 +212,10 @@ build: off
 #before_build:
 build_script:  # Cache is saved before build is finished
     # Add PostgreSQL binaries to the path
-    PATH=C:\Program Files\PostgreSQL\9.5\bin\;%PATH%
-    "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel install"
+    - PATH=C:\Program Files\PostgreSQL\9.5\bin\;%PATH%
+clone_folder: C:\projects\psycopg
+    - CD C:\projects\psycopg\psycopg2
+    - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel install"
 
 #after_build:
 
@@ -223,6 +225,7 @@ before_test:
 
 test_script:
     - "%PYTHON%/Scripts/pip.exe --version"
+    - CD C:\projects\psycopg\psycopg2
     #  - "build.cmd %PYTHON%\\python.exe setup.py test"
     - "build.cmd %PYTHON%\\python.exe -c \"from psycopg2 import tests; tests.unittest.main(defaultTest='tests.test_suite')\" --verbose"
 
