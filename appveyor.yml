@@ -213,7 +213,6 @@ build: off
 build_script:  # Cache is saved before build is finished
     # Add PostgreSQL binaries to the path
     - PATH=C:\Program Files\PostgreSQL\9.5\bin\;%PATH%
-clone_folder: C:\projects\psycopg
     - CD C:\projects\psycopg\psycopg
     - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel install"
 
