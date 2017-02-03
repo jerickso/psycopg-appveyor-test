@@ -218,6 +218,9 @@ install:
     - "%PYTHON%\\python.exe -m pip install --upgrade pip"
     - "%PYTHON%\\python.exe -m pip install wheel"
 
+    # Update the psycopg2 submodule
+    - git submodule update --init --recursive
+
 build: off
 
 #before_build:
