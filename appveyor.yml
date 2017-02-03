@@ -104,7 +104,7 @@ init:
 
     # Verify Python version and architecture
     - "%PYTHON%\\python --version"
-    - "%PYTHON%\\python -c \"import sys; print sys.maxsize > 2**32\""
+    #    - "%PYTHON%\\python -c \"import sys; print sys.maxsize > 2**32\""
     #    - SET ARCH64 %PYTHON%\\python -c "import sys; print sys.maxsize > 2**32"
 
     # Get & Install NASM
@@ -220,7 +220,7 @@ build_script:  # Cache is saved before build is finished
 
 before_test:
     # PostgreSQL
-    createdb %PSYCOPG2_TESTDB%
+    - createdb %PSYCOPG2_TESTDB%
 
 test_script:
     - "%PYTHON%/Scripts/pip.exe --version"
