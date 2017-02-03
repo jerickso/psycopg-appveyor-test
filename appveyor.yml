@@ -165,7 +165,7 @@ install:
         COPY inc32\openssl\*.h %OPENSSLTOP%\include\openssl &&
         COPY out32\*.lib %OPENSSLTOP%\lib &&
         CD %BASE_DIR% &&
-        RMDIR /S /Q %BASE_DIR%\openssl-1.0.2k &&
+        RMDIR /S /Q %BASE_DIR%\openssl-1.0.2k
       )
 
     # Build PostgreSQL Librarires
@@ -199,7 +199,7 @@ install:
         COPY *.h %PGTOP%\include &&
         COPY Release\libpq.lib %PGTOP%\lib &&
         CD %BASE_DIR% &&
-        RMDIR /S /Q %BASE_DIR%\postgresql-9.6.1 &&
+        RMDIR /S /Q %BASE_DIR%\postgresql-9.6.1
       )
 
 
