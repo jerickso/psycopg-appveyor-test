@@ -123,6 +123,10 @@ install:
     - SET BUILD_DIR=%BASE_DIR%\Builds
     - MKDIR %BUILD_DIR%
 
+    - ECHO Initial Variables
+    - ECHO %BASE_DIR%
+    - ECHO %BUILD_DIR%
+
     #    - If (!(Test-Path -Path "C:\\Others\\%PYTHON_ARCH%\\%VS_VER%" ) {
     #}
 
@@ -186,8 +190,8 @@ install:
         7z x C:\Others\postgresql-9.6.1.tar.gz -so | 7z x -si -ttar > nul &&
         CD postgresql-9.6.1\src\tools\msvc &&
         SET PGBUILD=%BUILDDIR%\postgresql-9.6.1 &&
-        ECHO $config->{ldap} = 0; > config.pl &&
-        ECHO $config->{openssl} = "%OPENSSLTOP%"; >> config.pl &&
+        ECHO $config-^>{ldap} = 0; > config.pl &&
+        ECHO $config-^>{openssl} = "%OPENSSLTOP%"; >> config.pl &&
         ECHO.>> config.pl &&
         ECHO 1;>> config.pl &&
         build libpgport &&
