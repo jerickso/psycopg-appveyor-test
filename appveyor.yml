@@ -148,11 +148,6 @@ install:
         appveyor DownloadFile https://github.com/openssl/openssl/archive/OpenSSL_1_0_2k.tar.gz
       )
 
-    - IF NOT EXIST %OPENSSLTOP%\lib\ssleay32.lib (
-        CD %BUILD_DIR% &&
-        7z x C:\Others\OpenSSL_1_0_2k.tar.gz -so | 7z x -si -ttar > nul &&
-        CD openssl-1.0.2k &&
-
     # To use OpenSSL >= 1.1.0, both libpq and psycopg build environments have to
     #   support the new library names.  Below are commands to build OpenSSL
     #   1.1.0:
@@ -160,6 +155,10 @@ install:
     #    - cd _build
     #    - perl ..\Configure %TARGET% no-asm no-shared --prefix=%BASE_DIR%\openssl --openssldir=%BASE_DIR%\openssl
     #    - nmake build_libs install_dev
+    - IF NOT EXIST %OPENSSLTOP%\lib\ssleay32.lib (
+        CD %BUILD_DIR% &&
+        7z x C:\Others\OpenSSL_1_0_2k.tar.gz -so | 7z x -si -ttar > nul &&
+        CD openssl-1.0.2k &&
         perl Configure %TARGET% no-asm no-shared no-zlib--prefix=%OPENSSLTOP% --openssldir=%OPENSSLTOP% &&
         CALL ms\%DO% &&
         nmake -f ms\nt.mak init headers lib &&
@@ -178,21 +177,22 @@ install:
     - IF NOT EXIST postgresql-9.6.1.tar.gz (
         appveyor DownloadFile https://ftp.postgresql.org/pub/source/v9.6.1/postgresql-9.6.1.tar.gz
     )
+
+    # Setup build config file (config.pl)
+    # Build libpgport first
+    # Build libpq
     - IF NOT EXIST %PGTOP%\lib\libpq.lib (
         CD %BUILD_DIR% &&
         7z x C:\Others\postgresql-9.6.1.tar.gz -so | 7z x -si -ttar > nul &&
         CD postgresql-9.6.1\src\tools\msvc &&
         SET PGBUILD=%BUILDDIR%\postgresql-9.6.1 &&
-        # Setup build config file (config.pl)
         ECHO $config->{ldap} = 0; > config.pl &&
         ECHO $config->{openssl} = "%OPENSSLTOP%"; >> config.pl &&
         ECHO.>> config.pl &&
         ECHO 1;>> config.pl &&
-        # Build libpgport first
         build libpgport &&
         XCOPY /E ..\..\include %PGTOP%\include &&
         COPY %PGBUILD%\Release\libpgport\libpgport.lib %PGTOP%\lib &&
-        # Build libpq
         CD ..\..\interfaces\libpq &&
         SET CPU=AMD64 &&
         nmake -f win32.mak USE_OPENSSL=1 ENABLE_THREAD_SAFETY=1 SSL_INC=%OPENSSLTOP%\include  SSL_LIB_PATH=%OPENSSLTOP%\lib config .\Release\libpq.lib &&
@@ -214,7 +214,7 @@ build_script:  # Cache is saved before build is finished
     # Add PostgreSQL binaries to the path
     - PATH=C:\Program Files\PostgreSQL\9.5\bin\;%PATH%
 clone_folder: C:\projects\psycopg
-    - CD C:\projects\psycopg\psycopg2
+    - CD C:\projects\psycopg\psycopg
     - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel install"
 
 #after_build:
@@ -225,7 +225,6 @@ before_test:
 
 test_script:
     - "%PYTHON%/Scripts/pip.exe --version"
-    - CD C:\projects\psycopg\psycopg2
     #  - "build.cmd %PYTHON%\\python.exe setup.py test"
     - "build.cmd %PYTHON%\\python.exe -c \"from psycopg2 import tests; tests.unittest.main(defaultTest='tests.test_suite')\" --verbose"
 
