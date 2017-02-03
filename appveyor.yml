@@ -176,7 +176,7 @@ install:
     - CD C:\Others
     - IF NOT EXIST postgresql-9.6.1.tar.gz (
         appveyor DownloadFile https://ftp.postgresql.org/pub/source/v9.6.1/postgresql-9.6.1.tar.gz
-    )
+      )
 
     # Setup build config file (config.pl)
     # Build libpgport first
