@@ -186,12 +186,15 @@ install:
     # Setup build config file (config.pl)
     # Build libpgport first
     # Build libpq
+    # Cannot 'set' variables inside the IF
+    - SET PGBUILD=%BUILDDIR%\postgresql-9.6.1
+    # TODO: Set CPU Better
+    - SET CPU=AMD64
     - IF NOT EXIST %PGTOP%\lib\libpq.lib (
         CD %BUILD_DIR% &&
         7z x C:\Others\postgresql-9.6.1.tar.gz -so | 7z x -si -ttar > nul &&
         DIR &&
         CD postgresql-9.6.1\src\tools\msvc &&
-        SET PGBUILD=%BUILDDIR%\postgresql-9.6.1 &&
         ECHO $config-^>{ldap} = 0; > config.pl &&
         ECHO $config-^>{openssl} = "%OPENSSLTOP:\=\\%"; >> config.pl &&
         ECHO.>> config.pl &&
@@ -201,7 +204,6 @@ install:
         DIR %PGBUILD% &&
         COPY %PGBUILD%\Release\libpgport\libpgport.lib %PGTOP%\lib &&
         CD ..\..\interfaces\libpq &&
-        SET CPU=AMD64 &&
         nmake -f win32.mak USE_OPENSSL=1 ENABLE_THREAD_SAFETY=1 SSL_INC=%OPENSSLTOP%\include  SSL_LIB_PATH=%OPENSSLTOP%\lib config .\Release\libpq.lib &&
         COPY *.h %PGTOP%\include &&
         COPY Release\libpq.lib %PGTOP%\lib &&
