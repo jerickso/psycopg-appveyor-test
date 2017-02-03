@@ -193,7 +193,7 @@ install:
         CD postgresql-9.6.1\src\tools\msvc &&
         SET PGBUILD=%BUILDDIR%\postgresql-9.6.1 &&
         ECHO $config-^>{ldap} = 0; > config.pl &&
-        ECHO $config-^>{openssl} = "%OPENSSLTOP%"; >> config.pl &&
+        ECHO $config-^>{openssl} = "%OPENSSLTOP:\=\\%"; >> config.pl &&
         ECHO.>> config.pl &&
         ECHO 1;>> config.pl &&
         build libpgport &&
