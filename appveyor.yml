@@ -13,10 +13,10 @@ environment:
         # For Python versions available on Appveyor, see
         # http://www.appveyor.com/docs/installed-software#python
 
-#        - PYTHON: C:\Python27
-#          PYTHON_ARCH: 32
-#          # VS 2008
-#          VS_VER: 9.0
+        - PYTHON: C:\Python27
+          PYTHON_ARCH: 32
+          # VS 2008
+          VS_VER: 9.0
 #        - PYTHON: C:\Python33
 #          PYTHON_ARCH: 32
 #          # VS 2010
@@ -25,18 +25,18 @@ environment:
 #          PYTHON_ARCH: 32
 #          # VS 2010
 #          VS_VER: 10.0
-#        - PYTHON: C:\Python35
-#          PYTHON_ARCH: 32
-#          # VS 2015
-#          VS_VER: 14.0
+        - PYTHON: C:\Python35
+          PYTHON_ARCH: 32
+          # VS 2015
+          VS_VER: 14.0
         - PYTHON: C:\Python36
           PYTHON_ARCH: 32
           # VS 2015
           VS_VER: 14.0
-#        - PYTHON: C:\Python27-x64
-#          PYTHON_ARCH: 64
-#          # VS 2008
-#          VS_VER: 9.0
+        - PYTHON: C:\Python27-x64
+          PYTHON_ARCH: 64
+          # VS 2008
+          VS_VER: 9.0
 #        - PYTHON: C:\Python33-x64
 #          DISTUTILS_USE_SDK: '1'
 #          PYTHON_ARCH: 64
@@ -47,10 +47,10 @@ environment:
 #          PYTHON_ARCH: 64
 #          # VS 2010
 #          VS_VER: 10.0
-#        - PYTHON: C:\Python35-x64
-#          PYTHON_ARCH: 64
-#          # VS 2015
-#          VS_VER: 14.0
+        - PYTHON: C:\Python35-x64
+          PYTHON_ARCH: 64
+          # VS 2015
+          VS_VER: 14.0
         - PYTHON: C:\Python36-x64
           PYTHON_ARCH: 64
           # VS 2015
