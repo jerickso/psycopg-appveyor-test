@@ -232,25 +232,21 @@ build_script:  # Cache is saved before build is finished
     # Update the psycopg2 submodule
     - git submodule update --init --recursive
 
-    - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel install"
+    - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel"
 
 #after_build:
 
 before_test:
     # PostgreSQL
     - createdb %PSYCOPG2_TESTDB%
+    - "%PYTHON\\python.exe setup.py install"
 
 test_script:
     - "%PYTHON%/Scripts/pip.exe --version"
     #  - "build.cmd %PYTHON%\\python.exe setup.py test"
-    - "build.cmd %PYTHON%\\python.exe -c \"from psycopg2 import tests; tests.unittest.main(defaultTest='tests.test_suite')\" --verbose"
+    - "%PYTHON%\\python.exe -c \"from psycopg2 import tests; tests.unittest.main(defaultTest='tests.test_suite')\" --verbose"
 
 after_test:
-    # This step builds your wheels.
-    # Again, you only need build.cmd if you're building C extensions for
-    # 64-bit Python 3.3/3.4. And you need to use %PYTHON% to get the correct
-    # interpreter
-    - "build.cmd %PYTHON%\\python.exe setup.py bdist_wheel"
     - "dir dist"
 
 artifacts:
