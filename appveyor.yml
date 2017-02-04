@@ -37,16 +37,16 @@ environment:
           PYTHON_ARCH: 64
           # VS 2008
           VS_VER: 9.0
-#        - PYTHON: C:\Python33-x64
-#          DISTUTILS_USE_SDK: '1'
-#          PYTHON_ARCH: 64
-#          # VS 2010
-#          VS_VER: 10.0
-#        - PYTHON: C:\Python34-x64
-#          DISTUTILS_USE_SDK: '1'
-#          PYTHON_ARCH: 64
-#          # VS 2010
-#          VS_VER: 10.0
+        - PYTHON: C:\Python33-x64
+          DISTUTILS_USE_SDK: '1'
+          PYTHON_ARCH: 64
+          # VS 2010
+          VS_VER: 10.0
+        - PYTHON: C:\Python34-x64
+          DISTUTILS_USE_SDK: '1'
+          PYTHON_ARCH: 64
+          # VS 2010
+          VS_VER: 10.0
         - PYTHON: C:\Python35-x64
           PYTHON_ARCH: 64
           # VS 2015
@@ -278,7 +278,7 @@ deploy: off
 
 # Uncomment to enable RDP on build finish
 on_finish:
-#    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 #notifications:
 #  - provider: Email
