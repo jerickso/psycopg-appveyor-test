@@ -84,7 +84,7 @@ cache:
 # Scripts called before repo cloning
 init:
     # Uncomment next line to get RDP access during the build.
-    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
     - ECHO "Filesystem root:"
     - ps: "ls C:/"
@@ -281,7 +281,7 @@ deploy: off
 
 # Uncomment to enable RDP on build finish
 on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 #notifications:
 #  - provider: Email
