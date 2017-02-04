@@ -17,14 +17,14 @@ environment:
           PYTHON_ARCH: 32
           # VS 2008
           VS_VER: 9.0
-#        - PYTHON: C:\Python33
-#          PYTHON_ARCH: 32
-#          # VS 2010
-#          VS_VER: 10.0
-#        - PYTHON: C:\Python34
-#          PYTHON_ARCH: 32
-#          # VS 2010
-#          VS_VER: 10.0
+        - PYTHON: C:\Python33
+          PYTHON_ARCH: 32
+          # VS 2010
+          VS_VER: 10.0
+        - PYTHON: C:\Python34
+          PYTHON_ARCH: 32
+          # VS 2010
+          VS_VER: 10.0
         - PYTHON: C:\Python35
           PYTHON_ARCH: 32
           # VS 2015
