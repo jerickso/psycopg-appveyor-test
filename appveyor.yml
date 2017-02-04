@@ -77,7 +77,7 @@ services:
 
 branches:
     only:
-        - master
+        - maint_2_6
 cache:
     - C:\Others
 
