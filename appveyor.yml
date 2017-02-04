@@ -218,8 +218,6 @@ install:
     - "%PYTHON%\\python.exe -m pip install --upgrade pip"
     - "%PYTHON%\\python.exe -m pip install wheel"
 
-    # Update the psycopg2 submodule
-    - git submodule update --init --recursive
 
 build: off
 
@@ -228,6 +226,10 @@ build_script:  # Cache is saved before build is finished
     # Add PostgreSQL binaries to the path
     - PATH=C:\Program Files\PostgreSQL\9.5\bin\;%PATH%
     - DIR C:\projects\psycopg
+
+    # Update the psycopg2 submodule
+    - git submodule update --init --recursive
+
     - CD C:\projects\psycopg\psycopg2
     - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel install"
 
