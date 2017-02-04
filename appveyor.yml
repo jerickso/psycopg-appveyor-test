@@ -233,21 +233,23 @@ build_script:  # Cache is saved before build is finished
     - git submodule update --init --recursive
 
     - "%PYTHON%\\python.exe setup.py build_ext --have-ssl -l libpgcommon -L %OPENSSLTOP%\\lib;%PGTOP%\\lib -I %OPENSSLTOP%\\include;%PGTOP%\\include bdist_wininst bdist_wheel"
+    - "%PYTHON%\\python.exe setup.py install"
 
 #after_build:
 
 before_test:
     # PostgreSQL
     - createdb %PSYCOPG2_TESTDB%
-    - "%PYTHON\\python.exe setup.py install"
 
 test_script:
     - "%PYTHON%/Scripts/pip.exe --version"
     #  - "build.cmd %PYTHON%\\python.exe setup.py test"
+    - cd \
     - "%PYTHON%\\python.exe -c \"from psycopg2 import tests; tests.unittest.main(defaultTest='tests.test_suite')\" --verbose"
 
 after_test:
-    - "dir dist"
+    - cd C:\projects\psycopg\psycopg2
+    - dir dist
 
 artifacts:
     # bdist_wheel puts your built wheel in the dist directory
