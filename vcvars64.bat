@@ -1,4 +1,6 @@
 @echo Setting environment for using Microsoft Visual Studio 2010 x64 tools.
+CALL "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+GOTO:EOF
 
 @call :GetVSCommonToolsDir
 @if "%VS100COMNTOOLS%"=="" goto error_no_VS100COMNTOOLSDIR
